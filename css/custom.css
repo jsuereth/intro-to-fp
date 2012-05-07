@@ -1,0 +1,13 @@
+
+/* My additions */
+
+.right-hover {
+  position: absolute;
+  right: 2em;
+  top: 2em;
+}
+
+.slide em  {
+  font-style: normal;
+  color: red;
+}

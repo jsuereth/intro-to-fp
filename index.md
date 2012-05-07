@@ -1,13 +1,12 @@
 ---
 layout: default
-title: Hekyll Presentation Generator
+title: Introduction to Functional Programming
 ---
 
-# Hekyll #
-_pronunciation: "heckle"_
+# Functional Programming #
 
-Hekyll is a presentation generator that uses Jekyll and Impress.js to create awesome presentations. You write Markdown files, which get turned into individual slides for an Impress.js presentation. How cool is that?
+Basic guide to functional programming using the Scala programming language.
 
-[Check it out in action!](preso.html)
+[Start Presentation](preso.html)
 
-[Fork me on GitHub](https://github.com/bmcmurray/hekyll)
+[Fork me on GitHub](https://github.com/jsuereth/intro-to-fp)
