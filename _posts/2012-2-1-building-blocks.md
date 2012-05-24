@@ -3,9 +3,10 @@ layout: default
 title: ""
 published: true
 data:
-  x: 3100
-  y: -1000
-  rotate: -35
+  x: 5550
+  y: 1650
+  z: 1000
+  rotate: 0
 ---
 
 # A few building blocks #
