@@ -11,3 +11,13 @@
   font-style: normal;
   color: red;
 }
+
+.highlight pre {
+  background: #F8F8F8;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
+  border: 1px solid #C8C8C8;
+  -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;
+  font-size: 22px;
+}
