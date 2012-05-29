@@ -1,0 +1,55 @@
+
+/* My additions */
+
+.right-hover {
+  position: absolute;
+  right: 2em;
+  top: 2em;
+}
+
+.slide em  {
+  font-style: normal;
+  color: red;
+}
+
+.highlight pre {
+  background: #F8F8F8;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
+  border: 1px solid #C8C8C8;
+  -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;
+  font-size: 22px;
+}
+
+.slide ol {
+	list-style-type: decimal;
+	display: block;
+}
+
+.slide ul {
+	list-style-type: disc;
+	display: block;
+}
+
+.slide li {
+	display: list-item;
+}
+
+.scala .nc {
+	font-weight: normal;
+	color: inherit;
+}
+
+.scala .kt {
+	color: rgb(17,85,204);
+}
+.scala .k, .scala .o {
+	color: #626;
+	font-weight: bold;
+}
+
+.scala {
+	text-shadow: none;
+	color: rgb(0,0,0);
+}

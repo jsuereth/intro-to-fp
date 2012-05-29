@@ -1,0 +1,478 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+<title>Hekyll Presentation Generator</title>
+<meta name="author" content="Josh Suereth" />
+<meta name="description" content="">
+
+<link href="css/fonts/roboto.css" rel="stylesheet" />
+<link href="css/hekyll.css" rel="stylesheet" />
+<link href="css/syntax.css" rel="stylesheet" />
+<link href="css/custom.css" rel="stylesheet" />
+
+</head>
+<body>
+  <div id="impress" class="impress-not-supported">
+    
+  <div class="step slide"  data-z="-2000" data-y="0" data-x="0" data-scale="15">
+  
+
+  <h1 id='functional_programming'>Functional Programming</h1>
+
+<p><em>An introduction in Scala</em></p>
+</div>
+
+
+  <div class="step slide"  data-y="-500" data-x="-3400" data-scale="5" data-rotate="0">
+  
+
+  <h1 id='who_am_i'>Who am I?</h1>
+
+<ul>
+<li>Author</li>
+
+<li>Blogger</li>
+
+<li>Software Developer</li>
+
+<li>Scala committer</li>
+
+<li>Big Nerd</li>
+</ul>
+<div class='right-hover'><img src='/cover.jpg' height='400' /></div>
+</div>
+
+
+  <div class="step slide"  data-y="0" data-x="2400" data-rotate="-25">
+  
+
+  <h1 id='agenda'>Agenda</h1>
+
+<ul>
+<li>
+<p>Define Functional Programming</p>
+</li>
+
+<li>
+<p>A Github User Statistics Calculator</p>
+
+<ul>
+<li>Asynchronous mapping</li>
+
+<li>Asynchronous traversal</li>
+
+<li>Joining computations</li>
+</ul>
+</li>
+
+<li>
+<p>Testing Synchronous + FP Patterns</p>
+</li>
+</ul>
+</div>
+
+
+  <div class="step slide"  data-y="350" data-x="3350" data-rotate="25">
+  
+
+  <h1 id='definition'>Definition</h1>
+
+<p>Functional Programming is the <em>composition</em> of <em>behavior</em> using <em>pure</em> functions.</p>
+</div>
+
+
+  <div class="step slide"  data-z="-1000" data-y="950" data-x="3750" data-rotate="30">
+  
+
+  <h1 id='pure_functions'>Pure Functions</h1>
+
+<p>Functions that are <em>referentially transparent</em>.</p>
+
+<ul>
+<li>We can <em>repeatedly</em> produce the same output from the same input.</li>
+
+<li>We can <em>Substitute</em> result of a function</li>
+</ul>
+</div>
+
+
+  <div class="step slide"  data-y="1750" data-x="4250" data-scale="1" data-rotate="25">
+  
+
+  <h1 id='which_one_is_rt'>Which one is RT?</h1>
+<div class='highlight'><pre><code class='scala'><span class='k'>def</span> <span class='n'>plus</span><span class='o'>(</span><span class='n'>x</span><span class='k'>:</span> <span class='kt'>Int</span><span class='o'>,</span> <span class='n'>y</span><span class='k'>:</span> <span class='kt'>Int</span><span class='o'>)</span> <span class='k'>=</span> 
+  <span class='n'>x</span> <span class='o'>+</span> <span class='n'>y</span>
+</code></pre>
+</div>
+<p>vs.</p>
+<div class='highlight'><pre><code class='scala'><span class='k'>def</span> <span class='n'>log</span><span class='o'>(</span><span class='n'>msg</span><span class='k'>:</span> <span class='kt'>String</span><span class='o'>)</span><span class='k'>:</span> <span class='kt'>Unit</span> <span class='o'>=</span> 
+  <span class='n'>logfile</span> <span class='n'>println</span> <span class='n'>wrap</span><span class='o'>(</span><span class='n'>msg</span><span class='o'>)</span>
+</code></pre>
+</div>
+</div>
+
+
+  <div class="step slide"  data-z="-1000" data-y="2250" data-x="4750" data-rotate="40">
+  
+
+  <h1 id='why_stay_pure'>Why stay pure?</h1>
+
+<ul>
+<li>Easier to <em>test</em> the code</li>
+
+<li>Easier to <em>reason</em> what a function does. <em>No surprises!</em></li>
+
+<li>Easier to go <em>concurrent</em></li>
+
+<li>Easier to <em>compose</em> functionality.</li>
+</ul>
+</div>
+
+
+  <div class="step slide"  data-z="0" data-y="2850" data-x="5350" data-rotate="50">
+  
+
+  <h1 id='a_reason_to_care'>A reason to care</h1>
+
+<p>Imagine you&#8217;re <em>gluing</em> together a set of <em>services</em>.</p>
+
+<p>Each call to service is an <em>asynchronous</em> network operation.</p>
+
+<p>Some operations can be run in <em>parallel</em>.</p>
+
+<p>We have a <em>high load</em> on the server and want to <em>prevent blocking</em>.</p>
+</div>
+
+
+  <div class="step slide"  data-z="1000" data-y="2450" data-x="5550" data-rotate="0">
+  
+
+  <h1 id='basic_outline'>Basic Outline</h1>
+
+<p>Collecting statistics for a given github user</p>
+
+<ul>
+<li>
+<p>For every <em>project</em> a user owns</p>
+
+<ol>
+<li>Collect all <em>pull requests</em></li>
+
+<li>Collect all <em>watchers</em></li>
+</ol>
+</li>
+
+<li>
+<p>Aggregate results into a <em>popularity score</em></p>
+</li>
+</ul>
+</div>
+
+
+  <div class="step slide"  data-z="2000" data-y="2050" data-x="5550" data-rotate="0">
+  
+
+  <h1 id='a_few_building_blocks'>A few building blocks</h1>
+<div class='highlight'><pre><code class='scala'><span class='k'>trait</span> <span class='nc'>Future</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>]</span> <span class='o'>{</span>
+  <span class='k'>def</span> <span class='n'>isDone</span><span class='k'>:</span> <span class='kt'>Boolean</span>
+  <span class='k'>def</span> <span class='n'>await</span><span class='k'>:</span> <span class='kt'>A</span>
+<span class='o'>}</span>
+</code></pre>
+</div><div class='highlight'><pre><code class='scala'><span class='k'>trait</span> <span class='nc'>GithubService</span> <span class='o'>{</span>
+  <span class='k'>def</span> <span class='n'>projects</span><span class='o'>(</span><span class='n'>user</span><span class='k'>:</span> <span class='kt'>User</span><span class='o'>)</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>Seq</span><span class='o'>[</span><span class='kt'>Project</span><span class='o'>]]</span>
+  <span class='k'>def</span> <span class='n'>pullreqs</span><span class='o'>(</span><span class='n'>project</span><span class='k'>:</span> <span class='kt'>Project</span><span class='o'>)</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>Seq</span><span class='o'>[</span><span class='kt'>PullRequest</span><span class='o'>]]</span>
+  <span class='k'>def</span> <span class='n'>watchers</span><span class='o'>(</span><span class='n'>project</span><span class='k'>:</span> <span class='kt'>Project</span><span class='o'>)</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>Seq</span><span class='o'>[</span><span class='kt'>User</span><span class='o'>]]</span>
+<span class='o'>}</span>
+</code></pre>
+</div>
+</div>
+
+
+  <div class="step slide"  data-z="-1000" data-y="-1650" data-x="-750" data-rotate="-50">
+  
+
+  <h1 id='a_first_start'>A first start</h1>
+<div class='highlight'>
+<pre><code class='scala'><span class='k'>def</span> getStatistics(user<span class='kt'>: User</span>)<span class='kt'>: Statistics</span> = {
+  <span class='k'>val</span> projects = api.projects(user).<em>await</em> 
+  <span class='k'>var</span> reqs = Seq.empty[<span class='kt'>PullRequest</span>]
+  <span class='k'>var</span> watchers = Seq.empty[<span class='kt'>User</span>]
+  <span class='k'>for</span>(project <span class='k'>&lt;-</span> projects) {
+    reqs ++= api.pullreqs(project).<em>await</em>
+    watchers ++= api.watchers(project).<em>await</em>
+  }
+  Statistics(user, reqs, watchers)
+}</code></pre></div>
+</div>
+
+
+  <div class="step slide"  data-z="-1000" data-y="-2150" data-x="-50" data-rotate="-10">
+  
+
+  <h1 id='adding_some_asynch'>Adding some Asynch</h1>
+<div class='highlight'><pre><code class='scala'><span class='k'>trait</span> <span class='nc'>Future</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>]</span> <span class='o'>{</span>
+  <span class='k'>def</span> <span class='n'>map</span><span class='o'>(</span><span class='n'>f</span><span class='k'>:</span> <span class='kt'>A</span> <span class='o'>=&gt;</span> <span class='n'>B</span><span class='o'>)</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>]</span>
+<span class='o'>}</span>
+</code></pre>
+</div>
+</div>
+
+
+  <div class="step slide"  data-z="0" data-y="-2150" data-x="-50" data-rotate="0">
+  
+
+  <h1 id='more_asynch'>More Asynch?</h1>
+<div class='highlight'><pre><code class='scala'><span class='k'>def</span> getStatistics(user<span class='kt'>: User</span>)<span class='kt'>: <em>Future</em>[Statistics]</span> =
+  api.projects(user) <em>map</em> { projects =&gt;
+    <span class='k'>var</span> reqs = Seq.empty[<span class='kt'>PullRequest</span>]
+    <span class='k'>var</span> watchers = Seq.empty[<span class='kt'>User</span>]
+    <span class='k'>for</span>(project <span class='k'>&lt;-</span> projects) {
+      reqs ++= api.pullreqs(project).<em>await</em>
+      watchers ++= api.watchers(project).<em>await</em>
+    }
+    Statistics(user, reqs, watchers)
+  }
+</code></pre></div>
+</div>
+
+
+  <div class="step slide"  data-z="1000" data-y="-2150" data-x="-50" data-rotate="10">
+  
+
+  <h1 id='nesting'>Nesting!</h1>
+<div class='highlight'><pre><code class='scala'> <span class='k'>val</span> <span class='n'>projects</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>Seq</span><span class='o'>[</span><span class='kt'>Project</span><span class='o'>]]</span> <span class='k'>=</span>
+   <span class='n'>api</span><span class='o'>.</span><span class='n'>projects</span><span class='o'>(</span><span class='n'>user</span><span class='o'>)</span>
+
+ <span class='k'>val</span> <span class='n'>firstpullreqs</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>Future</span><span class='o'>[</span><span class='kt'>Seq</span><span class='o'>[</span><span class='kt'>PullRequests</span><span class='o'>]]]</span> <span class='k'>=</span>
+   <span class='n'>projects</span> <span class='n'>map</span> <span class='o'>{</span> <span class='n'>projects</span> <span class='k'>=&gt;</span>
+     <span class='n'>api</span><span class='o'>.</span><span class='n'>getpullreqs</span><span class='o'>(</span><span class='n'>projects</span><span class='o'>.</span><span class='n'>head</span><span class='o'>)</span>
+   <span class='o'>}</span>
+
+<span class='k'>val</span> <span class='n'>flattenedPullReqs</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>Seq</span><span class='o'>[</span><span class='kt'>PullRequests</span><span class='o'>]]</span> <span class='k'>=</span>
+  <span class='o'>???</span>
+</code></pre>
+</div>
+</div>
+
+
+  <div class="step slide"  data-z="-1000" data-y="-1450" data-x="450" data-rotate="20">
+  
+
+  <h1 id='chaining_asynchronous_calls'>Chaining Asynchronous Calls</h1>
+<div class='highlight'><pre><code class='scala'><span class='k'>object</span> <span class='nc'>Future</span> <span class='o'>{</span>
+  <span class='k'>def</span> <span class='n'>flatten</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>](</span><span class='n'>f</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>Future</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>]])</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>]</span>
+<span class='o'>}</span>
+<span class='k'>trait</span> <span class='nc'>Future</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>]</span> <span class='o'>{</span>
+  <span class='k'>def</span> <span class='n'>flatMap</span><span class='o'>(</span><span class='n'>f</span><span class='k'>:</span> <span class='kt'>A</span> <span class='o'>=&gt;</span> <span class='nc'>Future</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>])</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>]</span>
+<span class='o'>}</span>
+</code></pre>
+</div>
+</div>
+
+
+  <div class="step slide"  data-z="0" data-y="-1450" data-x="450" data-rotate="20">
+  
+
+  <h1 id='a_fix_for_nesting'>A fix for nesting!</h1>
+<div class='highlight'><pre><code class='scala'><span class='k'>val</span> <span class='n'>projects</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>Seq</span><span class='o'>[</span><span class='kt'>Project</span><span class='o'>]]</span> <span class='k'>=</span>
+  <span class='n'>api</span><span class='o'>.</span><span class='n'>projects</span><span class='o'>(</span><span class='n'>user</span><span class='o'>)</span>
+
+<span class='k'>val</span> <span class='n'>firstpullreqs</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>Seq</span><span class='o'>[</span><span class='kt'>PullRequests</span><span class='o'>]]</span> <span class='k'>=</span>
+  <span class='n'>projects</span> <span class='n'>flatMap</span> <span class='o'>{</span> <span class='n'>projects</span> <span class='k'>=&gt;</span>
+    <span class='n'>api</span><span class='o'>.</span><span class='n'>getpullreqs</span><span class='o'>(</span><span class='n'>projects</span><span class='o'>.</span><span class='n'>head</span><span class='o'>)</span>
+  <span class='o'>}</span>
+</code></pre>
+</div>
+</div>
+
+
+  <div class="step slide"  data-z="-1000" data-y="-950" data-x="1050" data-rotate="40">
+  
+
+  <h1 id='too_much_blocking'>Too much blocking</h1>
+
+<ul>
+<li>I have a <em>sequence</em> of projects (<code class='scala'><span class='kt'>Seq[Project]</span></code>)</li>
+
+<li>I have an <em>asynchronous operation</em> on a project (<code class='scala'><span class='kt'>Project =&gt; Future[Seq[PullRequests]]</span></code>)</li>
+
+<li>I <em>want</em> an asynchronous collective result (<code class='scala'><span class='kt'>Future[Seq[PullRequest]]</span></code>)</li>
+
+<li>Should <em>not block</em> for every element of a collection!</li>
+</ul>
+</div>
+
+
+  <div class="step slide"  data-z="0" data-y="-950" data-x="1050" data-rotate="40">
+  
+
+  <h1 id='traversing'>Traversing</h1>
+<div class='highlight'><pre><code class='scala'><span class='k'>object</span> <span class='nc'>Future</span> <span class='o'>{</span>
+  <span class='k'>def</span> <span class='n'>traverse</span><span class='o'>[</span><span class='kt'>A</span>,<span class='kt'>B</span><span class='o'>](</span><span class='n'>values</span><span class='k'>:</span> <span class='kt'>Seq</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>])(</span><span class='n'>asynchOp</span><span class='k'>:</span> <span class='kt'>A</span> <span class='o'>=&gt;</span> <span class='nc'>Future</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>])</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>Seq</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>]]</span>
+<span class='o'>}</span>
+</code></pre>
+</div>
+</div>
+
+
+  <div class="step slide"  data-z="1000" data-y="-950" data-x="1050" data-rotate="40">
+  
+
+  <h1 id='traversing'>Traversing</h1>
+<div class='highlight'><pre><code class='scala'><span class='k'>def</span> getStatistics(user<span class='kt'>: User</span>)<span class='kt'>: Future[Statistics]</span> = {
+  <span class='k'>val</span> projects<span class='kt'>: Future[Seq[Project]]</span> = 
+    api.projects(user)
+  <span class='k'>val</span> requests<span class='kt'>: Future[Seq[Seq[PullRequests]]]</span> = 
+    projects <em>flatMap</em> { projects =&gt; Future.<em>traverse</em>(projects)(api.pullrequests).flatten }
+  <span class='k'>val</span> watchers<span class='kt'>: Future[Seq[Seq[User]]]</span> = 
+    projects <em>flatMap</em> { projects =&gt; Future.<em>traverse</em>(projects)(api.watchers) }    
+  Statistics(user, reqs.<em>await.flatten</em>, watchers.<em>await.flatten</em>)
+}
+</code></pre></div>
+</div>
+
+
+  <div class="step slide"  data-z="-1010" data-y="-450" data-x="1600" data-rotate="60">
+  
+
+  <h1 id='zippingjoining'>Zipping/Joining</h1>
+<div class='highlight'><pre><code class='scala'><span class='k'>trait</span> <span class='nc'>Future</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>]</span> <span class='o'>{</span>
+  <span class='k'>def</span> <span class='n'>zip</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>](</span><span class='n'>other</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>])</span><span class='k'>:</span> <span class='kt'>Future</span><span class='o'>[(</span><span class='kt'>A</span>,<span class='kt'>B</span><span class='o'>)]</span>
+<span class='o'>}</span>
+</code></pre>
+</div>
+</div>
+
+
+  <div class="step slide"  data-z="-10" data-y="-450" data-x="1600" data-rotate="60">
+  
+
+  <h1 id='using_zip'>Using zip</h1>
+<div class='highlight'><pre><code class='scala'><span class='k'>def</span> getStatistics(user<span class='kt'>: User</span>)<span class='kt'>: Future[Statistics]</span> = {
+  <span class='k'>val</span> projects<span class='kt'>: Future[Seq[Project]]</span> = api.projects(user)
+  <span class='k'>val</span> requests<span class='kt'>: Future[Seq[PullRequest]]</span> = 
+    projects <em>flatMap</em> { projects =&gt; Future.<em>traverse</em>(projects)(api.pullrequests) } map (_.flatten)
+  <span class='k'>val</span> watchers<span class='kt'>: Future[Seq[User]]</span> = 
+    projects <em>flatMap</em> { projects =&gt; Future.<em>traverse</em>(projects)(api.watchers) } map (_.flatten)
+  <span class='k'>val</span> together<span class='kt'>: Future[(Seq[PullRequest], Seq[User])]</span> =
+    reqs <em>zip</em> watchers    
+  together <em>map</em> { case (r, w) => Statistics(user, r, w) }
+}
+</code></pre></div>
+</div>
+
+
+  <div class="step slide"  data-z="980" data-y="-450" data-x="1600" data-rotate="60">
+  
+
+  <h1 id='some_sugar'>Some sugar</h1>
+<div class='highlight'><pre><code class='scala'><span class='k'>def</span> getStatistics(user<span class='kt'>: User</span>)<span class='kt'>: Future[Statistics]</span> = {
+  <span class='k'>val</span> projects<span class='kt'>: Future[Seq[Project]]</span> = api.projects(user)
+  <span class='k'>val</span> requests<span class='kt'>: Future[Seq[PullRequest]]</span> = <span class='k'>for</span> {
+       ps <span class='k'>&lt;-</span> projects
+       requests <span class='k'>&lt;-</span> Future.traverse(projects)(api.pullrequests)
+    } <span class='k'>yield</span> requests.flatten
+  <span class='k'>val</span> watchers<span class='kt'>: Future[Seq[User]]</span> = ...
+  <span class='k'>for</span>((r,w) &lt;- requests zip watchers)
+  <span class='k'>yield</span> Statistics(user, r, w)
+}
+</code></pre></div>
+</div>
+
+
+  <div class="step slide"  data-z="1990" data-y="-450" data-x="1600" data-rotate="60">
+  
+
+  <h1 id='what_about_testing'>What about testing?</h1>
+
+<p>Want to test program <em>logic</em> not <em>execution</em> context.</p>
+
+<ul>
+<li>Don&#8217;t want to <em>alter</em> core logic code.</li>
+
+<li>Avoid <em>multi-threading</em> in tests.</li>
+</ul>
+</div>
+
+
+  <div class="step slide"  data-z="-1000" data-y="2450" data-x="-750" data-rotate="0">
+  
+
+  <h1 id='abstracting_the_concepts'>Abstracting the Concepts</h1>
+
+<ul>
+<li>Sequenced Computational Context (<em>flatMap</em>)</li>
+
+<li>Joined Computation (<em>zip</em>)</li>
+
+<li>Contextual Iteration (<em>traverse</em>)</li>
+</ul>
+</div>
+
+
+  <div class="step slide"  data-z="-1000" data-y="2250" data-x="50" data-rotate="-20">
+  
+
+  <h1 id='functors'>Functors</h1>
+
+<p>The <em>map</em> operation</p>
+<div class='highlight'><pre><code class='scala'><span class='k'>trait</span> <span class='nc'>Functor</span><span class='o'>[</span><span class='kt'>F</span><span class='o'>[</span><span class='k'>_</span><span class='o'>]]</span> <span class='o'>{</span>
+  <span class='k'>def</span> <span class='n'>map</span><span class='o'>[</span><span class='kt'>A</span>,<span class='kt'>B</span><span class='o'>](</span><span class='n'>a</span><span class='k'>:</span> <span class='kt'>F</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>])(</span><span class='n'>f</span><span class='k'>:</span> <span class='kt'>A</span> <span class='o'>=&gt;</span> <span class='n'>B</span><span class='o'>)</span><span class='k'>:</span> <span class='kt'>F</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>]</span>
+<span class='o'>}</span>
+</code></pre>
+</div>
+</div>
+
+
+  <div class="step slide"  data-z="-1000" data-y="1750" data-x="650" data-rotate="-30">
+  
+
+  <h1 id='monads'>Monads</h1>
+
+<p>The <em>flatMap</em> operation</p>
+<div class='highlight'><pre><code class='scala'><span class='k'>trait</span> <span class='nc'>Monad</span><span class='o'>[</span><span class='kt'>M</span><span class='o'>[</span><span class='k'>_</span><span class='o'>]]</span> <span class='o'>{</span>
+  <span class='k'>def</span> <span class='n'>point</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>](</span><span class='n'>a</span><span class='k'>:</span> <span class='kt'>A</span><span class='o'>)</span><span class='k'>:</span> <span class='kt'>M</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>]</span>
+  <span class='k'>def</span> <span class='n'>flatMap</span><span class='o'>[</span><span class='kt'>A</span>,<span class='kt'>B</span><span class='o'>](</span><span class='n'>ma</span><span class='k'>:</span> <span class='kt'>M</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>])(</span><span class='n'>f</span><span class='k'>:</span> <span class='kt'>A</span> <span class='o'>=&gt;</span> <span class='n'>M</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>])</span><span class='k'>:</span> <span class='kt'>M</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>]</span>
+<span class='o'>}</span>
+</code></pre>
+</div>
+</div>
+
+
+  <div class="step slide"  data-z="-1000" data-y="1250" data-x="1050" data-rotate="-60">
+  
+
+  <h1 id='applicative_functors'>Applicative Functors</h1>
+
+<p>The <em>zip</em> operation</p>
+<div class='highlight'><pre><code class='scala'><span class='k'>trait</span> <span class='nc'>Applicative</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>[</span><span class='k'>_</span><span class='o'>]]</span> <span class='o'>{</span>
+  <span class='k'>def</span> <span class='n'>point</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>](</span><span class='n'>a</span><span class='k'>:</span> <span class='kt'>A</span><span class='o'>)</span><span class='k'>:</span> <span class='kt'>A</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>]</span>
+  <span class='k'>def</span> <span class='n'>ap</span><span class='o'>[</span><span class='kt'>B</span>,<span class='kt'>C</span><span class='o'>](</span><span class='n'>fa</span><span class='k'>:</span> <span class='kt'>A</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>])(</span><span class='n'>f</span><span class='k'>:</span> <span class='kt'>A</span><span class='o'>[</span><span class='kt'>B</span> <span class='k'>=&gt;</span> <span class='kt'>C</span><span class='o'>])</span><span class='k'>:</span> <span class='kt'>A</span><span class='o'>[</span><span class='kt'>C</span><span class='o'>]</span>
+<span class='o'>}</span>
+</code></pre>
+</div>
+</div>
+
+
+  <div class="step slide"  data-z="-1000" data-y="650" data-x="1550" data-rotate="-40">
+  
+
+  <h1 id='iteration'>Iteration</h1>
+
+<p>The <em>traverse</em> operation.</p>
+<div class='highlight'><pre><code class='scala'><span class='k'>trait</span> <span class='nc'>Traverse</span><span class='o'>[</span><span class='kt'>Coll</span><span class='o'>[</span><span class='k'>_</span><span class='o'>]]</span> <span class='o'>{</span>
+  <span class='k'>def</span> <span class='n'>traverse</span><span class='o'>[</span><span class='kt'>Context</span><span class='o'>[</span><span class='k'>_</span><span class='o'>]</span><span class='kt'>:</span> <span class='kt'>Applicative</span>,<span class='kt'>A</span>,<span class='kt'>B</span><span class='o'>](</span><span class='n'>a</span><span class='k'>:</span> <span class='kt'>Coll</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>])(</span><span class='n'>f</span><span class='k'>:</span> <span class='kt'>A</span> <span class='o'>=&gt;</span> <span class='nc'>Context</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>])</span><span class='k'>:</span> <span class='kt'>Context</span><span class='o'>[</span><span class='kt'>Coll</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>]]</span>
+<span class='o'>}</span>
+</code></pre>
+</div>
+</div>
+
+
+
+<div id="overview" class="step"  data-y="1000" data-x="1000" data-scale="15"></div>
+
+  </div>
+</body>
+</html>
+
