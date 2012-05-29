@@ -21,3 +21,35 @@
   -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;
   font-size: 22px;
 }
+
+.slide ol {
+	list-style-type: decimal;
+	display: block;
+}
+
+.slide ul {
+	list-style-type: disc;
+	display: block;
+}
+
+.slide li {
+	display: list-item;
+}
+
+.scala .nc {
+	font-weight: normal;
+	color: inherit;
+}
+
+.scala .kt {
+	color: rgb(17,85,204);
+}
+.scala .k, .scala .o {
+	color: #626;
+	font-weight: bold;
+}
+
+.scala {
+	text-shadow: none;
+	color: rgb(0,0,0);
+}

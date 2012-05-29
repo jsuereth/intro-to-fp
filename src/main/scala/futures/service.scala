@@ -10,21 +10,15 @@ case class Statistics(
 
 class SpecificStatisticsService(api: GhApi)(implicit ctx: ExecutionContext) {
   
+  
     def statistics(user: String): Future[Statistics] = {
       val projects = api.projects(user)
-      
-      val pullRequests = for {
+      def fget[B](f: Project => Future[Seq[B]]): Future[Seq[B]] = for {
         ps <- projects
-        prs <- Future.traverse(ps)(api.pullrequests)
-      } yield prs.flatten
-      
-      val watchers = for {
-        ps <- projects
-        watchers <- Future.traverse(ps)(api.watchers)
-      } yield watchers.flatten
-      
-      pullRequests zip watchers map { case (prs, ws) =>
-        Statistics(user, ws, prs)
-      }
+        items <- Future.traverse(ps)(f)
+      } yield items.flatten
+      for {
+        (pulls, watchers) <- fget(api.pullrequests) zip fget(api.watchers) 
+      } yield Statistics(user, watchers, pulls)
     }
 }

@@ -4,8 +4,8 @@ title: ""
 published: true
 data:
   x: 5550
-  y: 1650
-  z: 1000
+  y: 2050
+  z: 2000
   rotate: 0
 ---
 
@@ -20,9 +20,8 @@ trait Future[A] {
 
 {% highlight scala %}
 trait GithubService {
-  def pullreqs(project: GhProject): Future[Seq[PullRequest]]
-  def branches(project: GhProject): Future[Seq[Branches]]
-  def comments(pr: PullRequest): Future[PullRequestComment]]
-  def comment(pc: PullRequestComment): Future[Unit]
+  def projects(user: User): Future[Seq[Project]]
+  def pullreqs(project: Project): Future[Seq[PullRequest]]
+  def watchers(project: Project): Future[Seq[User]]
 }
 {% endhighlight %}

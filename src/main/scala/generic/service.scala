@@ -15,18 +15,13 @@ class GenericStatisticsService[Context[_]: Monad](api: GhApi[Context]) {
     
   def statistics(user: String): Context[Statistics] = {
       val projects = api.projects(user)
-      
-      val pullRequests = for {
+      def get[B](f: Project => Context[Seq[B]]): Context[Seq[B]] = for {
         ps <- projects
-        prs <- ps traverse api.pullrequests
-      } yield prs.flatten
-      
-      val watchers = for {
-        ps <- projects
-        watchers <- ps traverse api.watchers
-      } yield watchers.flatten
-      
-      (pullRequests, watchers) ap { (prs, ws) =>
+        items <- ps traverse f
+      } yield items.flatten
+      val pullRequests = get(api.pullrequests)
+      val watchers = get(api.watchers)
+      (pullRequests zip watchers) map { case (prs, ws) =>
         Statistics(user, ws, prs)
       }
   }
