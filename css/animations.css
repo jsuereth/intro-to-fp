@@ -1,0 +1,29 @@
+.slide .reveal {
+	display: block;
+}
+.future .reveal {
+	display: none;
+}
+.present .delay-1 {
+  -webkit-transition-delay: 1.0s;
+  -moz-transition-delay:    1.0s;
+  -ms-transition-delay:     1.0s;
+  -o-transition-delay:      1.0s;
+  transition-delay:         1.0s;
+}
+
+.present .delay-5 {
+  -webkit-transition-delay: 5.0s;
+  -moz-transition-delay:    5.0s;
+  -ms-transition-delay:     5.0s;
+  -o-transition-delay:      5.0s;
+  transition-delay:         5.0s;
+}
+
+.present .delay-10 {
+  -webkit-transition-delay: 10.0s;
+  -moz-transition-delay:    10.0s;
+  -ms-transition-delay:     10.0s;
+  -o-transition-delay:      10.0s;
+  transition-delay:         10.0s;
+}

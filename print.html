@@ -10,6 +10,7 @@
 <link href="css/hekyll.css" rel="stylesheet" />
 <link href="css/syntax.css" rel="stylesheet" />
 <link href="css/custom.css" rel="stylesheet" />
+<link href="css/animations.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -24,7 +25,7 @@
 </div>
 
 
-  <div class="step slide"  data-y="-500" data-x="-3400" data-scale="5" data-rotate="0">
+  <div class="step slide"  data-y="-500" data-x="-3400" data-rotate="0" data-scale="5">
   
 
   <h1 id='who_am_i'>Who am I?</h1>
@@ -37,10 +38,8 @@
 <li>Software Developer</li>
 
 <li>Scala committer</li>
-
-<li>Big Nerd</li>
 </ul>
-<div class='right-hover'><img src='/cover.jpg' height='400' /></div>
+<ul class='reveal delay-5'><li>Big Nerd</li></ul><div class='right-hover'><img height='400' src='cover.png' /></div>
 </div>
 
 
@@ -97,7 +96,7 @@
 </div>
 
 
-  <div class="step slide"  data-y="1750" data-x="4250" data-scale="1" data-rotate="25">
+  <div class="step slide"  data-y="1750" data-x="4250" data-rotate="25" data-scale="1">
   
 
   <h1 id='which_one_is_rt'>Which one is RT?</h1>
@@ -324,7 +323,7 @@
   <span class='k'>val</span> projects<span class='kt'>: Future[Seq[Project]]</span> = 
     api.projects(user)
   <span class='k'>val</span> requests<span class='kt'>: Future[Seq[Seq[PullRequests]]]</span> = 
-    projects <em>flatMap</em> { projects =&gt; Future.<em>traverse</em>(projects)(api.pullrequests).flatten }
+    projects <em>flatMap</em> { projects =&gt; Future.<em>traverse</em>(projects)(api.pullrequests) }
   <span class='k'>val</span> watchers<span class='kt'>: Future[Seq[Seq[User]]]</span> = 
     projects <em>flatMap</em> { projects =&gt; Future.<em>traverse</em>(projects)(api.watchers) }    
   Statistics(user, reqs.<em>await.flatten</em>, watchers.<em>await.flatten</em>)
