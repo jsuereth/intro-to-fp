@@ -7,7 +7,7 @@ Authored by: Josh Suereth (jsuereth)
 
 Asycnhronous APIs are all the rage, however most APIs remain clunky.  This talk embarks on journey to glue together some asynchronous calls in a way that is still asynchronous.  After acheiving the concurrent nirvana, one is faced with the issue of testing.   With a few simple functional abstractions, the same code can be used in both a synchronous and asynchronous manner.
 
-In particular, this talk covers:
+In particular, [this talk](http://jsuereth.com/intro-to-fp) covers:
 
 * Monadic workflows
 * Applicative Functors and joined computation
