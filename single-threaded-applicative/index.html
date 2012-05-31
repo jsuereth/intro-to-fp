@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+<title></title>
+<meta name="author" content="Josh Suereth" />
+<meta name="description" content="">
+
+<link href="css/fonts/roboto.css" rel="stylesheet" />
+<link href="css/hekyll.css" rel="stylesheet" />
+<link href="css/syntax.css" rel="stylesheet" />
+<link href="css/custom.css" rel="stylesheet" />
+<link href="css/animations.css" rel="stylesheet" />
+
+</head>
+<body>
+  <div id="impress" class="impress-not-supported">
+    <div class="step">
+      <h1 id='singlethreaded_applicative_functor'>SingleThreaded Applicative Functor</h1>
+
+<p><em>flatMap</em> method</p>
+<div class='highlight'><pre><code class='scala'><span class='k'>def</span> <span class='n'>ap</span><span class='o'>[</span><span class='kt'>A</span>,<span class='kt'>B</span><span class='o'>](</span>
+  <span class='n'>a</span><span class='k'>:</span> <span class='kt'>SingleThreaded</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>],</span>
+  <span class='n'>f</span><span class='k'>:</span> <span class='kt'>SingleThreaded</span><span class='o'>[</span><span class='kt'>A</span> <span class='k'>=&gt;</span> <span class='kt'>B</span><span class='o'>])</span><span class='k'>:</span> <span class='kt'>SingleThreaded</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>]</span> <span class='k'>=</span>
+</code></pre>
+</div>
+<ul>
+<li><code>SingleThreaded[A]</code> <em>is</em> <code>A</code></li>
+
+<li><code>SingleThreaded[A =&gt; B]</code> <em>is</em> <code>A =&gt; B</code></li>
+
+<li><code>ap</code> <em>is</em> <code>f(a)</code></li>
+</ul>
+    </div>
+  </div>
+</body>
+</html>
+
