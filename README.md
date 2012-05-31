@@ -1,36 +1,42 @@
-# Hekyll
-_pronunciation: "heckle"_
+# Introduction to Functional Programming Patterns #
+_in Scala_
 
-Authored by: Brian McMurray (bmcmurray) and Steven Merrill (smerrill)
+Authored by: Josh Suereth (jsuereth)
 
-Hekyll is a presentation generator that uses [Jekyll](https://github.com/mojombo/jekyll) and [Impress.js](https://github.com/bartaz/impress.js) to create awesome presentations. You write [Markdown](http://daringfireball.net/projects/markdown/syntax) files, which get turned into individual slides for an Impress.js presentation.
+## Description ##
 
-## Design Goals
+Asycnhronous APIs are all the rage, however most APIs remain clunky.  This talk embarks on journey to glue together some asynchronous calls in a way that is still asynchronous.  After acheiving the concurrent nirvana, one is faced with the issue of testing.   With a few simple functional abstractions, the same code can be used in both a synchronous and asynchronous manner.
 
-Hekyll should:
+In particular, this talk covers:
 
-- Make it easy for hackers to write graphically-impressive presentations in Markdown.
-- Allow easier collaboration on these presentations through GitHub.
-- Allow users to commit and publish their presentations through GitHub using GitHub Pages.
-- Provide a good print stylesheet so that a user can print to PDF when conferences ask for slide decks.
-- Provide a simple slideshow mode for generating quick, regular slide shows (simple cross-fades between slides without the need to individually position each slide "Prezi-style."
+* Monadic workflows
+* Applicative Functors and joined computation
+* Essence of Iteration
 
-## How to Use Hekyll
+As seen in the Akka futures library.
 
-1. Download and install Jekyll.
-2. Download or clone the Hekyll repository.
-3. Configure options in _config.yml
-4. Create a new Markdown file for each slide in ``_posts``. Use the ``post_template.md`` as a starting point. Be sure to name each file with a date, just like Jekyll.
+## Requirements ##
 
-## Requirements
-
+- sbt(0.11.3)
 - Jekyll
 
-## Acknowledgements
+## Acknowledgements ##
 
-This project stands on the shoulders of giants and would not be possible without these projects:
+Thanks to all my FP peeps who drilled this stuff into me until I realized it was useful.
 
+This presentation uses:
+
+- [hekyll](https://github.com/bmcmurray/hekyll)
 - [impress.js](https://github.com/bartaz/impress.js)
 - [Jekyll](https://github.com/mojombo/jekyll)
-- [GitHub Pages](http://pages.github.com/)
+- [Simple Build Tool](https://github.com/harrah/xsbt)
+- [Scala](https://github.com/scala/scala)
+
+## Resources ##
+
+- [Scala in Depth](http://manning.com/suereth)
+- [Scala documentation](http://docs.scala-lang.org)
+- [Akka documentation](http://akka.io/docs/)
+- [Essence of the Iterator Pattern](http://www.cs.ox.ac.uk/jeremy.gibbons/publications/iterator.pdf)
+- [Blog: Essence of Iterator Pattern](http://etorreborre.blogspot.com/2011/06/essence-of-iterator-pattern.html)
 
