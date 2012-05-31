@@ -1,9 +1,41 @@
 .slide .reveal {
 	display: block;
+	-webkit-transition: 0.5s;
+    -moz-transition:    0.5s;
+    -ms-transition:     0.5s;
+    -o-transition:      0.5s;
+    transition:         0.5s;
 }
 .future .reveal {
 	display: none;
 }
+.bignerd {
+	display: inline-block;
+}
+.present .bignerd {
+    -webkit-transform: scale(1.5) translateX(15px) rotate(10deg);
+    -moz-transform:    scale(1.5) translateX(15px) rotate(10deg);
+    -ms-transform:     scale(1,5) translateX(15px) rotate(10deg);
+    -o-transform:      scale(1.5) translateX(15px) rotate(10deg);
+    transform:         scale(1.5) translateX(15px) rotate(10deg);
+}
+
+.transition-05 {
+    -webkit-transition: 0.5s;
+    -moz-transition:    0.5s;
+    -ms-transition:     0.5s;
+    -o-transition:      0.5s;
+    transition:         0.5s;
+}
+
+.global-delay-1 {
+  -webkit-transition-delay: 1.0s;
+  -moz-transition-delay:    1.0s;
+  -ms-transition-delay:     1.0s;
+  -o-transition-delay:      1.0s;
+  transition-delay:         1.0s;
+}
+
 .present .delay-1 {
   -webkit-transition-delay: 1.0s;
   -moz-transition-delay:    1.0s;
