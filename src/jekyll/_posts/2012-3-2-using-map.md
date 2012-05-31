@@ -3,10 +3,10 @@ layout: default
 title: ""
 published: true
 data:
-  x: -50
-  y: -2150
-  z: 000
-  rotate: 0
+  x: -750
+  y: -1650
+  z: 2000
+  rotate: -50
 ---
 
 # More Asynch? #

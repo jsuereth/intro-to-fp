@@ -3,10 +3,10 @@ layout: default
 title: ""
 published: true
 data:
-  x: 1050
-  y: -950
-  z: -1000
-  rotate: 40
+  x: -750
+  y: -1650
+  rotate: -50
+  z: 900
 ---
 
 # Too much blocking #
