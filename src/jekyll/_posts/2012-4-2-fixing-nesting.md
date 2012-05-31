@@ -5,8 +5,8 @@ published: true
 data:
   x: 1050
   y: -950
-  z: 900
   rotate: 40
+  z: 900
 ---
 
 # A fix for nesting! #

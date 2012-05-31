@@ -5,8 +5,8 @@ published: true
 data:
   x: 1050
   y: -950
-  z: -10000
   rotate: 40
+  z: -200
 ---
 
 # Traversing #

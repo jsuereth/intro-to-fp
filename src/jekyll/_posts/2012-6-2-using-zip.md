@@ -3,10 +3,10 @@ layout: default
 title: ""
 published: true
 data:
-  x: 1600
-  y: -450
-  z: -10000
-  rotate: 60
+  x: -50
+  y: -2150
+  rotate: -10
+  z: -1400
 ---
 
 # Using zip #

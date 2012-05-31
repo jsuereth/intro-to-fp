@@ -3,10 +3,10 @@ layout: default
 title: Introduction to Functional Programming
 ---
 
-# Functional Programming #
-
-Basic guide to functional programming using the Scala programming language.
+# Functional Patterns #
 
 [Start Presentation](preso.html)
+
+[Printable Presentation](print.html)
 
 [Fork me on GitHub](https://github.com/jsuereth/intro-to-fp)

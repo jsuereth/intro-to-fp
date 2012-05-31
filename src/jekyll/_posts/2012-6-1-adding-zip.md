@@ -3,10 +3,10 @@ layout: default
 title: ""
 published: true
 data:
-  x: 1600
-  y: -450
-  z: -10000
-  rotate: 60
+  x: 1250
+  y: -950
+  rotate: 40
+  z: -1400
 ---
 
 # Zipping/Joining #
