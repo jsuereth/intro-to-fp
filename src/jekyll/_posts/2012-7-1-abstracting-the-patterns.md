@@ -5,8 +5,8 @@ published: true
 data:
   x: -750
   y: 2450
-  z: -1000
   rotate: 0
+  z: -1000
 ---
 
 # Abstracting the Concepts #

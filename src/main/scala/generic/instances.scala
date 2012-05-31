@@ -15,13 +15,13 @@ object Instances {
     def flatMap[A, B](x: Seq[A])(f: A => Seq[B]): Seq[B] =
       x flatMap f
     def traverse[Context[_]: Applicative,A,B](a: Seq[A])(f: A => Context[B]): Context[Seq[B]] = {
-      // TODO - improve performance...
+      // TODO - best performance?
       val ap = implicitly[Applicative[Context]]
+      val mapped: Seq[Context[B]] = a map f
       val init = ap point Seq.empty[B]
-      a.foldLeft(init) { (current, el) =>
-        val transformed: Context[B] = f(el)
+      mapped.foldLeft(init) { (current, el) =>
         val appendTransformed: Context[Seq[B] => Seq[B]] =
-          ap.map(transformed) { t => (start: Seq[B]) => start :+ t }
+          ap.map(el) { t => (start: Seq[B]) => start :+ t }
         ap.ap(current)(appendTransformed)
       }
     }
@@ -39,11 +39,11 @@ object Instances {
   }
   
   final class ConcurrentAbstractions(implicit executor: ExecutionContext) 
-    extends Monad[Concurrent] {
-    def point[A](x: A): Concurrent[A] = Future(x)
-    override def map[A, B](x: Concurrent[A])(f: A => B): Concurrent[B] =
+    extends Monad[Future] {
+    def point[A](x: A): Future[A] = Future(x)
+    override def map[A, B](x: Future[A])(f: A => B): Future[B] =
       x map f
-    def flatMap[A, B](x: Concurrent[A])(f: A => Concurrent[B]): Concurrent[B] =
+    def flatMap[A, B](x: Future[A])(f: A => Future[B]): Future[B] =
       x flatMap f
   }
   implicit def concurrentAbs(implicit executor: ExecutionContext): ConcurrentAbstractions = 
