@@ -19,8 +19,11 @@
       <h1 id='iteration'>Iteration</h1>
 
 <p>The <em>traverse</em> operation.</p>
-<div class='highlight'><pre><code class='scala'><span class='k'>trait</span> <span class='nc'>Traverse</span><span class='o'>[</span><span class='kt'>Coll</span><span class='o'>[</span><span class='k'>_</span><span class='o'>]]</span> <span class='o'>{</span>
-  <span class='k'>def</span> <span class='n'>traverse</span><span class='o'>[</span><span class='kt'>Context</span><span class='o'>[</span><span class='k'>_</span><span class='o'>]</span><span class='kt'>:</span> <span class='kt'>Applicative</span>,<span class='kt'>A</span>,<span class='kt'>B</span><span class='o'>](</span><span class='n'>a</span><span class='k'>:</span> <span class='kt'>Coll</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>])(</span><span class='n'>f</span><span class='k'>:</span> <span class='kt'>A</span> <span class='o'>=&gt;</span> <span class='nc'>Context</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>])</span><span class='k'>:</span> <span class='kt'>Context</span><span class='o'>[</span><span class='kt'>Coll</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>]]</span>
+<div class='highlight'><pre><code class='scala'><span class='k'>trait</span> <span class='nc'>Traverse</span><span class='o'>[</span><span class='kt'>Collection</span><span class='o'>[</span><span class='k'>_</span><span class='o'>]]</span> <span class='o'>{</span>
+  <span class='k'>def</span> <span class='n'>traverse</span><span class='o'>[</span><span class='kt'>Context</span><span class='o'>[</span><span class='k'>_</span><span class='o'>]</span><span class='kt'>:</span> <span class='kt'>Applicative</span>,<span class='kt'>A</span>,<span class='kt'>B</span><span class='o'>](</span>
+     <span class='n'>collection</span><span class='k'>:</span> <span class='kt'>Collection</span><span class='o'>[</span><span class='kt'>A</span><span class='o'>],</span>
+     <span class='n'>operation</span><span class='k'>:</span> <span class='kt'>A</span> <span class='o'>=&gt;</span> <span class='nc'>Context</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>]</span>
+  <span class='o'>)</span><span class='k'>:</span> <span class='kt'>Context</span><span class='o'>[</span><span class='kt'>Collection</span><span class='o'>[</span><span class='kt'>B</span><span class='o'>]]</span>
 <span class='o'>}</span>
 </code></pre>
 </div>
