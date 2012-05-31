@@ -6,7 +6,7 @@ data:
   x: 1550
   y: 650
   rotate: -40
-  z: 1200
+  z: 1500
 ---
 
 # SingleThreaded Applicative Functor #

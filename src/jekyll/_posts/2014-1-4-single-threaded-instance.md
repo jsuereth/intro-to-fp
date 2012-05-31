@@ -6,7 +6,7 @@ data:
   x: 50
   y: 2250
   rotate: -20
-  z: 1200
+  z: 1500
 ---
 
 # SingleThreaded Functor #

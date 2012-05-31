@@ -6,7 +6,7 @@ data:
   x: 1050
   y: 1250
   rotate: -60
-  z: -1000
+  z: -1400
 ---
 
 # Applicative Functors #

@@ -6,7 +6,7 @@ data:
   x: 1050
   y: -950
   rotate: 40
-  z: 900
+  z: 500
 ---
 
 # A fix for nesting! #

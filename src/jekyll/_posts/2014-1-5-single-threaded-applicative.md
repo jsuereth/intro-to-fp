@@ -6,7 +6,7 @@ data:
   x: 650
   y: 1750
   rotate: -30
-  z: 1200
+  z: 1500
 ---
 
 # SingleThreaded Monad #

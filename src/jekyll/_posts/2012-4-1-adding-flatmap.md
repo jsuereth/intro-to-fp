@@ -6,7 +6,7 @@ data:
   x: 450
   y: -1450
   rotate: 20
-  z: 900
+  z: 500
 ---
 
 # Chaining Asynchronous Calls #

@@ -6,7 +6,7 @@ data:
   x: 50
   y: 2250
   rotate: -20
-  z: -1000
+  z: -1400
 ---
 
 # Functors #

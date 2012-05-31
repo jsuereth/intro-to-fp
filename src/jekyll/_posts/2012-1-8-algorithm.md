@@ -5,7 +5,7 @@ published: true
 data:
   x: 5550
   y: 2450
-  z: 1000
+  z: 1200
   rotate: 0
 ---
 

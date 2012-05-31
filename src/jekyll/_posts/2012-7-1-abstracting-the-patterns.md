@@ -6,7 +6,7 @@ data:
   x: -750
   y: 2450
   rotate: 0
-  z: -1000
+  z: -1400
 ---
 
 # Abstracting the Concepts #

@@ -6,7 +6,7 @@ data:
   x: -50
   y: -2150
   rotate: -10
-  z: -1400
+  z: -2600
 ---
 
 # Using zip #

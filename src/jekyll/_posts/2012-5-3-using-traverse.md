@@ -6,7 +6,7 @@ data:
   x: 1050
   y: -950
   rotate: 40
-  z: -200
+  z: -1200
 ---
 
 # Traversing #

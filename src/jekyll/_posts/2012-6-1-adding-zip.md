@@ -6,7 +6,7 @@ data:
   x: 1250
   y: -950
   rotate: 40
-  z: -1400
+  z: -2600
 ---
 
 # Zipping/Joining #

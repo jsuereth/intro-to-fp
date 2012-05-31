@@ -6,7 +6,7 @@ data:
   x: 3350
   y: 350
   rotate: 25
-  z: 1200
+  z: 1900
 ---
 
 # Conclusions #

@@ -6,7 +6,7 @@ data:
   x: -50
   y: -2150
   rotate: -10
-  z: 3090
+  z: 3390
 ---
 
 # A first start - Threading #

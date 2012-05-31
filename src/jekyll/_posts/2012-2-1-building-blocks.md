@@ -4,8 +4,8 @@ title: ""
 published: true
 data:
   x: 5550
-  y: 2050
-  z: 2000
+  y: 2000
+  z: 2400
   rotate: 0
 ---
 

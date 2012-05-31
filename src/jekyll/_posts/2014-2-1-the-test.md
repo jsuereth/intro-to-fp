@@ -6,7 +6,7 @@ data:
   x: 2400
   y: 0
   rotate: -25
-  z: 1200
+  z: 1800
 ---
 
 # Now a single-threaded test #

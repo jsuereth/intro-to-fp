@@ -6,7 +6,7 @@ data:
   x: -750
   y: -1650
   rotate: -50
-  z: 900
+  z: 500
 ---
 
 # Too much blocking #

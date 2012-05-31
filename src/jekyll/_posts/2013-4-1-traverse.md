@@ -6,7 +6,7 @@ data:
   x: 1550
   y: 650
   rotate: -40
-  z: -1000
+  z: -1400
 ---
 
 # Iteration #
