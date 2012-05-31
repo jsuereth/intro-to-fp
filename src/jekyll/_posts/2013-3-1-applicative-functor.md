@@ -14,8 +14,12 @@ data:
 The *zip* operation
 
 {% highlight scala %}
-trait Applicative[F[_]] {
-  def point[A](a: A): F[A]
-  def ap[A,B](fa: F[A])(f: F[A => B]): F[B]
+trait Applicative[Context[_]] {
+  def point[A](raw_value: A): Context[A]
+  
+  def applyNested[A,B](
+    value: Context[A],
+    contexted_function: Context[A => B]
+  ): Context[B]
 }
 {% endhighlight %}

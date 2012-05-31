@@ -14,7 +14,10 @@ data:
 The *traverse* operation.
 
 {% highlight scala %}
-trait Traverse[Coll[_]] {
-  def traverse[Context[_]: Applicative,A,B](a: Coll[A])(f: A => Context[B]): Context[Coll[B]]
+trait Traverse[Collection[_]] {
+  def traverse[Context[_]: Applicative,A,B](
+     collection: Collection[A],
+     operation: A => Context[B]
+  ): Context[Collection[B]]
 }
 {% endhighlight %}
