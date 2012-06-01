@@ -6,6 +6,13 @@ site.settings
 
 site.jekyllSupport()
 
+com.jsuereth.sbtsite.SiteKeys.siteMappings <<= com.jsuereth.sbtsite.SiteKeys.siteMappings map { m =>
+  for {
+    (file, target) <- m
+    if (target startsWith "css/") || !(target contains "/")
+  } yield file -> target
+}
+
 resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
 
 libraryDependencies ++= Seq(
