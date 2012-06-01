@@ -11,7 +11,7 @@ data:
 
 # SingleThreaded Applicative Functor #
 
-*flatMap* method
+*ap* method
 
 {% highlight scala %}
 def ap[A,B](
