@@ -5,7 +5,7 @@ title: Introduction to Functional Programming
 
 # Functional Patterns #
 
-[Start Presentation](preso.html)
+[Start Presentation](preso.html) [older computers](simple-preso.html)
 
 [Printable Presentation](print.html)
 

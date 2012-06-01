@@ -1,0 +1,5 @@
+<div class="step{%if post.classes | size %}{% for class in post.classes %} {{class}}{% endfor %}{% else %} slide{% endif %}">
+  {% if post.title != "" %}<h1>{{ post.title }}</h1>{% endif %}
+
+  {{ post.content }}
+</div>
