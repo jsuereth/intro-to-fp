@@ -1,12 +1,10 @@
 package generic
 
-import akka.dispatch.{ExecutionContext,Future}
-import akka.actor.ActorSystem
+import concurrent._
 import Instances._
 
 object StatApp extends App {
-  implicit val system = ActorSystem()
-  implicit val ctx = ExecutionContext.defaultExecutionContext
+  implicit val ctx = ExecutionContext.Implicits.global
   
   val api = GhApi.makeNonBlocking
   val service = new GenericStatisticsService(api)

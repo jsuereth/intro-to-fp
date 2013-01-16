@@ -1,11 +1,9 @@
 package futures
 
-import akka.dispatch.{ExecutionContext,Future}
-import akka.actor.ActorSystem
+import concurrent._
 
 object StatApp extends App {
-  implicit val system = ActorSystem()
-  implicit val ctx = ExecutionContext.defaultExecutionContext
+  implicit val ctx = ExecutionContext.Implicits.global
   
   val api = GhApi.make
   val service = new SpecificStatisticsService(api)

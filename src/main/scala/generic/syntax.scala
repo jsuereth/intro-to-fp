@@ -3,7 +3,7 @@ package generic
 object Syntax {
   
   // Helpers put on "container" types.
-  final class ContainedOps[M[_], A](ma: M[A]) {
+  final implicit class ops[M[_], A](val ma: M[A]) extends AnyVal{
     def map[B](f: A => B)(implicit ev: Functor[M]): M[B] =
       ev.map(ma)(f)
     def flatMap[B](f: A => M[B])(implicit ev: Monad[M]): M[B] =
@@ -13,30 +13,22 @@ object Syntax {
     def traverse[Context[_], B](f: A => Context[B])(implicit ev: Traverse[M], ev2: Applicative[Context]): Context[M[B]] =
       ev.traverse(ma)(f)
   }
-  implicit def ops[M[_], A](m: M[A]): ContainedOps[M,A] =
-    new ContainedOps(m)
   
   // Helpers put on Tuple2 types.
-  final class Tuple2Ops[M[_], A, B](tuple2: (M[A], M[B])) {
+  final implicit class tuple2Ops[M[_], A, B](val tuple2: (M[A], M[B])) extends AnyVal {
     def ap[C](f: (A,B) => C)(implicit ap: Applicative[M]) =
       ap.ap(tuple2._2)(tuple2._1 map f.curried)
   }
-  implicit def tuple2Ops[M[_], A, B](t2: (M[A], M[B])): Tuple2Ops[M,A,B] =
-    new Tuple2Ops(t2)
   
   
   // Helpers put on Tuple3 types.
-  final class Tuple3Ops[M[_], A, B, C](tuple: (M[A], M[B], M[C])) {
+  final implicit class tuple3Ops[M[_], A, B, C](val tuple: (M[A], M[B], M[C])) extends AnyVal {
     def ap[D](f: (A,B,C) => D)(implicit ap: Applicative[M]) =
       ap.ap(tuple._3)(ap.ap(tuple._2)(tuple._1 map f.curried))
   }
-  implicit def tuple3Ops[M[_], A, B, C](t: (M[A], M[B], M[C])): Tuple3Ops[M,A,B,C] =
-    new Tuple3Ops(t)
   
   // Helpers put on any type.
-  final class Any2Ops[A](a: A) {
+  final implicit class any2Ops[A](val a: A) extends AnyVal {
     def point[P[_]: Pointed] = implicitly[Pointed[P]] point a
   }
-  implicit def any2Ops[A](a: A): Any2Ops[A] = 
-    new Any2Ops(a)
 }

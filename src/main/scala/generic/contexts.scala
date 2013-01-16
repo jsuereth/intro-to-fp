@@ -1,6 +1,6 @@
 package generic
 
-import akka.dispatch.Future
+import concurrent.Future
 
 
 object Contexts {

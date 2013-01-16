@@ -1,6 +1,6 @@
 package futures
 
-import akka.dispatch.Future
+import concurrent.Future
 
 case class Project(name: String)
 case class PullRequest()

@@ -13,7 +13,7 @@ trait GhApi[Context[_]] {
 }
 
 object GhApi {
-  def makeNonBlocking: GhApi[akka.dispatch.Future] =
+  def makeNonBlocking: GhApi[concurrent.Future] =
     null 
 }
 

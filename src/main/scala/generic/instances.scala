@@ -2,8 +2,7 @@ package generic
 
 import Contexts.Concurrent
 import Contexts.SingleThreaded
-import akka.dispatch.ExecutionContext
-import akka.dispatch.Future
+import concurrent._
 
 
 object Instances {

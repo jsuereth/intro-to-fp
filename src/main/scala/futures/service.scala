@@ -1,7 +1,6 @@
 package futures
 
-import akka.dispatch.{Future,Futures,ExecutionContext}
-
+import concurrent._
 
 case class Statistics(
     user: String,
