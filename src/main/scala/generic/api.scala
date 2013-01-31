@@ -1,19 +1,18 @@
 package generic
 
-case class Project(name: String)
-case class PullRequest()
-case class Watcher()
+case class Project(owner: String, name: String)
+case class PullRequest(project: Project, id: String)
+case class Collaborator(name: String)
 
 
 trait GhApi[Context[_]] {
   def projects(user: String): Context[Seq[Project]]
   def pullrequests(proj: Project): Context[Seq[PullRequest]]
   
-  def watchers(proj: Project): Context[Seq[Watcher]]
+  def collaborators(proj: Project): Context[Seq[Collaborator]]
 }
 
 object GhApi {
-  def makeNonBlocking: GhApi[concurrent.Future] =
-    null 
+  def makeNonBlocking: GhApi[concurrent.Future] = LiveGhApi 
 }
 

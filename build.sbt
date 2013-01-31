@@ -19,6 +19,7 @@ scalaVersion := "2.10.0"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" % "akka-actor_2.10" % "2.1.0",
+  "net.databinder.dispatch" % "dispatch-core_2.10" % "0.9.5",
   "org.specs2" % "specs2_2.10" % "1.13" % "test"
 )
 
