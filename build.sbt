@@ -23,6 +23,8 @@ libraryDependencies ++= Seq(
   "org.specs2" % "specs2_2.10" % "1.13" % "test"
 )
 
+scalacOptions += "-optimise"
+
 ghpages.settings
 
 git.remoteRepo := "git@github.com:jsuereth/intro-to-fp.git"
