@@ -1,8 +1,6 @@
 package generic
 
-case class Project(owner: String, name: String)
-case class PullRequest(project: Project, id: String)
-case class Collaborator(name: String)
+import model._
 
 
 trait GhApi[Context[_]] {

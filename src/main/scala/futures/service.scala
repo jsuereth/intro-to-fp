@@ -1,6 +1,7 @@
 package futures
 
 import concurrent._
+import model._
 
 case class Statistics(
     user: String,

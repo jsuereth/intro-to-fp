@@ -4,6 +4,7 @@ import concurrent.Future
 import concurrent.promise
 import util.parsing.json.{JSON,JSONType,JSONObject,JSONArray}
 import scala.util.control.NonFatal
+import model._
 
 case class AuthApp(name: String, url: String)
 case class Authorization(id: String, token: String, app: AuthApp, note: Option[String])
@@ -91,7 +92,9 @@ object LiveGhApi extends GhApi[Future] {
           case Some(value) => 
           try result.success(handleJson(value))
           catch {
-            case NonFatal(e) => result.failure(e)
+            case NonFatal(e) => 
+              //System.err.println("Failed to parse: " + json)
+              result.failure(e)
           }
         }
     }
@@ -99,18 +102,22 @@ object LiveGhApi extends GhApi[Future] {
   }
     
   def projects(user: String): Future[Seq[Project]] = 
-    rest(s"${githubUrl}/users/${user}/repos") { 
+    rest(s"${githubUrl}/users/${user}/repos?per_page=100") { 
       case data: Seq[Map[String,Any]] =>
         data map { json => Project(user, json("name").toString) }
     }
   def pullrequests(proj: Project): Future[Seq[PullRequest]] = 
-    rest(s"${githubUrl}/repos/${proj.owner}/${proj.name}/pulls") { 
+    rest(s"${githubUrl}/repos/${proj.owner}/${proj.name}/pulls?per_page=100&state=closed") { 
       case data: Seq[Map[String,Any]] =>
-        data map { json => PullRequest(proj, json("number").toString) }
+        data map { json => PullRequest(
+            proj, 
+            json("number").toString,
+            json.get("user").asInstanceOf[Option[Map[String,Any]]].map(_("login").toString).getOrElse(""),
+            json.get("merged_at").isDefined)}
     }
   
   def collaborators(proj: Project): Future[Seq[Collaborator]] = 
-    rest(s"${githubUrl}/repos/${proj.owner}/${proj.name}/collaborators") { 
+    rest(s"${githubUrl}/repos/${proj.owner}/${proj.name}/collaborators?per_page=100") { 
       case data: Seq[Map[String, Any]] =>
         data map (json => Collaborator(json("login").toString))
     }
