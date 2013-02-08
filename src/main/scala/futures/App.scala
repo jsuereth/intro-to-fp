@@ -9,7 +9,7 @@ object StatApp extends App {
   val api = GhApi.make
   val service = new SpecificStatisticsService(api)
   for(arg <- args) {
-    val stats = Await.result(service.statistics(arg), 60 seconds) 
-    println("Statistiscs = " + stats)
+    val stats = Await.result(service.userStatistics(arg), 60 seconds) 
+    println(stats)
   }
 }
