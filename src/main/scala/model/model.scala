@@ -23,8 +23,8 @@ case class ProjectStatistics(
   override def toString =
     f"""|\t---- Project ${project.name} Statistics---
         |\t  Pull requests:         ${pullreqs.length}
-        |\t  % Merged:              ${mergePercent}%02.2f
-        |\t  % Merged from Outside: ${outsideMergePercent}%02.2f""".stripMargin
+        |\t  %% Merged:              ${mergePercent}%02.2f
+        |\t  %% Merged from Outside: ${outsideMergePercent}%02.2f""".stripMargin
 }
 
 case class Statistics(

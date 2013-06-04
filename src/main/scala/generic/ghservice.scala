@@ -11,6 +11,7 @@ case class Authorization(id: String, token: String, app: AuthApp, note: Option[S
 
 object Authenticate {
   import dispatch._
+  import Defaults._
   private[this] val authorizations = 
     url("https://api.github.com/authorizations").setHeader("User-Agent", "github.com/jsuereth/intro-to-fp")
 
@@ -42,14 +43,16 @@ object Authenticate {
  }
   
   def makeAuthentication(user: String, pw: String): Authorization = {
-    val string = Http(authorizations.POST.as_!(user, pw) << authScopes OK as.String)()
+    val future = Http(authorizations.POST.as_!(user, pw) << authScopes OK as.String)
+    val string = future()
     System.out.println("Creating new authentication token.")
     parseAuthorization(JSON.parseFull(string).get)
   }
     //Http(authorizations.POST.as_!(user, pw) << authScopes >- parseJsonTo[Authorization])
 
   def getAuthentications(user: String, pw: String): List[Authorization] = {
-    val string = Http(authorizations.as_!(user, pw) OK as.String)()
+    val future = Http(authorizations.as_!(user, pw) OK as.String)
+    val string = future()
     val list = JSON.parseFull(string).get
     list match {
       case list: Seq[Any] => (list map parseAuthorization)(collection.breakOut)
@@ -57,8 +60,10 @@ object Authenticate {
     }
   }
 
-  def deleteAuthentication(auth: Authorization, user: String, pw: String): Unit =
-    Http((authorizations / auth.id).DELETE.as_!(user,pw))()
+  def deleteAuthentication(auth: Authorization, user: String, pw: String): Unit = {
+    val future = Http((authorizations / auth.id).DELETE.as_!(user,pw))
+    future()
+  }
 
   def deleteAuthentications(user: String, pw: String): Unit =
      getAuthentications(user, pw) foreach { a => 
@@ -84,6 +89,7 @@ object LiveGhApi extends GhApi[Future] {
   private def rest[A](uri: String)(handleJson: Any => A): Future[A] = {
     val result = promise[A]
     import dispatch._
+    import Defaults._
     Http(url(uri).setHeader("User-Agent", "github.com/jsuereth/intro-to-fp").setHeader("Authorization", s"token ${authorization.token}") OK as.String) foreach {
       json =>
         // TODO - Parse and fill out our result
